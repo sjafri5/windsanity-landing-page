@@ -291,7 +291,7 @@
 
 <script>
 const SUPABASE_URL = 'https://ywswccgxwbzgisvdpcou.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3c3djY2d4d2J6Z2lzdmRwY291Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc4NTUyMjMsImV4cCI6MjA1MzQzMTIyM30.sb_publishable_NFpSgF4-O6bYLEJcWdNQzg_-_wvagjm';
+const SUPABASE_KEY = 'sb_publishable_NFpSgF4-O6bYLEJcWdNQzg_-_wvagjm';
 
 document.getElementById('quote-form').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -323,7 +323,7 @@ document.getElementById('quote-form').addEventListener('submit', async function(
         email: formData.email,
         name: formData.name,
         source: 'windsanity-landing-page',
-        metadata: JSON.stringify({ phone: formData.phone, dimensions: formData.dimensions, city: formData.city, notes: formData.notes })
+        phone: formData.phone, source_detail: formData.city + " - " + formData.dimensions
       })
     });
   } catch (err) {
