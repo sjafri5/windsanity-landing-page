@@ -15,7 +15,7 @@ exports.handler = async (event) => {
       email: data.email || '',
       phone: data.phone || '',
       source: 'windsanity',
-      source_detail: 'landing-page-form'
+      source_detail: data.source_detail || 'landing-page-form'
     };
     
     const res = await fetch(SUPABASE_URL + '/rest/v1/email_list', {

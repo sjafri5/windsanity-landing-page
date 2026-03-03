@@ -94,7 +94,7 @@
       .product-grid { grid-template-columns: 1fr; }
     }
   </style>
-</head>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1574746923780972");fbq("track","PageView");</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1574746923780972&ev=PageView&noscript=1"/></noscript></head>
 <body>
 
 <nav>
@@ -290,8 +290,7 @@
 </footer>
 
 <script>
-const SUPABASE_URL = 'https://ywswccgxwbzgisvdpcou.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_NFpSgF4-O6bYLEJcWdNQzg_-_wvagjm';
+// Supabase calls routed through serverless function
 
 document.getElementById('quote-form').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -309,26 +308,23 @@ document.getElementById('quote-form').addEventListener('submit', async function(
     source: 'windsanity-landing-page'
   };
 
-  // Send to Supabase
+  // Send to Supabase via serverless function (key stays server-side)
   try {
-    await fetch(SUPABASE_URL + '/rest/v1/email_list', {
+    const sbRes = await fetch('/.netlify/functions/submit-lead', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=minimal'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: formData.email,
         name: formData.name,
-        source: 'windsanity-landing-page',
-        phone: formData.phone, source_detail: formData.city + " - " + formData.dimensions
+        phone: formData.phone,
+        source_detail: formData.city + ' - ' + formData.dimensions
       })
     });
-  } catch (err) {
-    // Supabase insert failed silently, Netlify form still captures it
-  }
+    console.log('Supabase save:', sbRes.status);
+  } catch (err) { console.error('Supabase save failed:', err); }
+
+  // Fire Meta Pixel Lead event
+  if (typeof fbq === 'function') { fbq('track', 'Lead'); }
 
   // Also submit to Netlify Forms
   try {
