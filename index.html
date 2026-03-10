@@ -254,11 +254,16 @@
               <label for="city">City</label>
               <select id="city" name="city" required>
                 <option value="">Select your city</option>
+                <option>Austin</option>
+                <option>Dallas</option>
+                <option>Fort Worth</option>
                 <option>Houston</option>
+                <option>San Antonio</option>
                 <option>Spring</option>
                 <option>Cypress</option>
                 <option>Katy</option>
                 <option>Sugar Land</option>
+                <option value="Other">Other</option>
                 <option>The Woodlands</option>
                 <option>San Antonio</option>
                 <option>Austin</option>
@@ -317,6 +322,8 @@ document.getElementById('quote-form').addEventListener('submit', async function(
         email: formData.email,
         name: formData.name,
         phone: formData.phone,
+        city: formData.city,
+        dimensions: formData.dimensions,
         source_detail: formData.city + ' - ' + formData.dimensions
       })
     });

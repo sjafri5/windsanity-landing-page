@@ -16,6 +16,7 @@ exports.handler = async (event) => {
       name: data.name || '',
       email: data.email || '',
       phone: data.phone || '',
+      city: data.city || '',
       source: 'windsanity',
       source_detail: data.source_detail || 'landing-page-form'
     };
@@ -58,7 +59,7 @@ exports.handler = async (event) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             chat_id: '5434271126',
-            text: 'New Windsanity lead!\nName: ' + payload.name + '\nEmail: ' + payload.email + '\nPhone: ' + payload.phone + '\nArea: ' + payload.source_detail + '\n\nSaved: Supabase=' + results.supabase + ' Sheets=' + results.sheets
+            text: 'New Windsanity lead!\nName: ' + payload.name + '\nEmail: ' + payload.email + '\nPhone: ' + payload.phone + '\nCity: ' + (data.city || 'N/A') + '\nDimensions: ' + (data.dimensions || 'N/A') + '\n\nSaved: Supabase=' + results.supabase + ' Sheets=' + results.sheets
           })
         });
         results.telegram = true;
