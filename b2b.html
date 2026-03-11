@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windsanity HVAC | Partner With Us — ADU & Builder HVAC Solutions</title>
+  <meta name="description" content="Dedicated mini split installer for ADU builders, contractors, and property managers across Texas. Same-day installs, volume pricing, one less sub to manage.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1a2332;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-900: #0f172a;
+      --white: #ffffff;
+      --green: #16a34a;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--gray-900); line-height: 1.6; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    nav { background: var(--navy); padding: 16px 0; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-brand { color: var(--white); font-size: 1.25rem; font-weight: 700; text-decoration: none; }
+    .nav-cta { background: var(--blue); color: var(--white); padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #1e3a5f 100%); color: var(--white); padding: 80px 0 60px; text-align: center; }
+    .hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+    .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 640px; margin: 0 auto 32px; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; margin-bottom: 24px; }
+    .btn-primary { background: var(--blue); color: var(--white); padding: 16px 40px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.1rem; display: inline-block; border: none; cursor: pointer; }
+    .btn-primary:hover { background: var(--blue-dark); }
+
+    /* SEGMENTS */
+    .segments { padding: 64px 0; background: var(--gray-50); }
+    .segments h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; }
+    .segment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .segment-card { background: var(--white); border-radius: 12px; padding: 32px 24px; border: 1px solid var(--gray-200); }
+    .segment-card h3 { font-size: 1.2rem; margin-bottom: 8px; color: var(--navy); }
+    .segment-card .deal-size { color: var(--blue); font-weight: 700; font-size: 0.9rem; margin-bottom: 12px; }
+    .segment-card ul { list-style: none; }
+    .segment-card li { padding: 4px 0; font-size: 0.95rem; color: var(--gray-700); }
+    .segment-card li::before { content: "\2713"; color: var(--green); margin-right: 8px; font-weight: bold; }
+
+    /* WHY */
+    .why { padding: 64px 0; }
+    .why h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; text-align: center; }
+    .why-item h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .why-item p { font-size: 0.95rem; color: var(--gray-600); }
+    .why-number { font-size: 2.5rem; font-weight: 800; color: var(--blue); margin-bottom: 8px; }
+
+    /* FORM */
+    .form-section { padding: 64px 0; background: var(--navy); color: var(--white); }
+    .form-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 8px; }
+    .form-section .subtitle { text-align: center; opacity: 0.8; margin-bottom: 32px; }
+    .b2b-form { max-width: 520px; margin: 0 auto; }
+    .form-row { margin-bottom: 16px; }
+    .form-row label { display: block; font-size: 0.85rem; margin-bottom: 4px; opacity: 0.9; }
+    .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: var(--white); font-size: 1rem; }
+    .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(255,255,255,0.5); }
+    .form-row select option { color: var(--gray-900); }
+    .form-row textarea { resize: vertical; min-height: 80px; }
+    .form-submit { width: 100%; padding: 16px; background: var(--blue); color: var(--white); border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; }
+    .form-submit:hover { background: var(--blue-dark); }
+
+    /* FOOTER */
+    footer { padding: 32px 0; text-align: center; font-size: 0.85rem; color: var(--gray-600); }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero { padding: 48px 0 40px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-brand">Windsanity HVAC</a>
+      <a href="#contact" class="nav-cta">Partner With Us</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">B2B Partnership Program</div>
+      <h1>Your Dedicated HVAC Installer Across Texas</h1>
+      <p>Stop juggling HVAC subcontractors. Windsanity handles every mini split install for your builds. Same-day turnaround, volume pricing, one point of contact.</p>
+      <a href="#contact" class="btn-primary">Start a Partnership</a>
+    </div>
+  </section>
+
+  <section class="segments">
+    <div class="container">
+      <h2>Built for Builders Like You</h2>
+      <div class="segment-grid">
+        <div class="segment-card">
+          <h3>ADU & Tiny Home Builders</h3>
+          <div class="deal-size">$2,000 - $4,000 per unit</div>
+          <ul>
+            <li>Mini splits sized for 200-800 sq ft</li>
+            <li>Install coordinated with your build schedule</li>
+            <li>Consistent quality across every unit</li>
+            <li>Permit handling included</li>
+          </ul>
+        </div>
+        <div class="segment-card">
+          <h3>Garage Conversion Contractors</h3>
+          <div class="deal-size">$2,000 - $3,500 per job</div>
+          <ul>
+            <li>Ductless = no existing HVAC needed</li>
+            <li>Same-day install, no return visits</li>
+            <li>Your clients get a finished, climate-controlled space</li>
+            <li>Warranty handled by us</li>
+          </ul>
+        </div>
+        <div class="segment-card">
+          <h3>Property Managers</h3>
+          <div class="deal-size">$10,000 - $30,000+ annually</div>
+          <ul>
+            <li>Fleet pricing for multi-unit properties</li>
+            <li>Priority scheduling for tenant turnover</li>
+            <li>Maintenance contracts available</li>
+            <li>One invoice, one vendor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="container">
+      <h2>Why Builders Choose Windsanity</h2>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-number">2,000+</div>
+          <h3>Installs Completed</h3>
+          <p>Across residential, commercial, and new construction projects in Texas.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-number">1 Day</div>
+          <h3>Install Turnaround</h3>
+          <p>Most installs completed same-day. No return visits, no schedule delays for your project.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-number">EPA</div>
+          <h3>Certified Technicians</h3>
+          <p>Every installer is EPA Section 608 certified. Veteran-owned operation.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-number">TX</div>
+          <h3>Statewide Coverage</h3>
+          <p>Houston, Austin, San Antonio, Dallas-Fort Worth, and everywhere in between.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="contact">
+    <div class="container">
+      <h2>Let's Talk Partnership</h2>
+      <p class="subtitle">Tell us about your business. We'll get back to you within 24 hours with a custom proposal.</p>
+      <form class="b2b-form" id="b2bForm">
+        <div class="form-row">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="Full name" required>
+        </div>
+        <div class="form-row">
+          <label>Company Name</label>
+          <input type="text" name="company" placeholder="Your company" required>
+        </div>
+        <div class="form-row">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@company.com" required>
+        </div>
+        <div class="form-row">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="(xxx) xxx-xxxx" required>
+        </div>
+        <div class="form-row">
+          <label>Business Type</label>
+          <select name="business_type" required>
+            <option value="">Select your business type</option>
+            <option value="adu_builder">ADU / Tiny Home Builder</option>
+            <option value="garage_conversion">Garage Conversion Contractor</option>
+            <option value="property_manager">Property Manager / Landlord</option>
+            <option value="general_contractor">General Contractor</option>
+            <option value="commercial">Commercial (Gym, Brewery, Auto Shop)</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Estimated Units Per Year</label>
+          <select name="volume">
+            <option value="">How many installs per year?</option>
+            <option value="1-5">1 - 5</option>
+            <option value="6-20">6 - 20</option>
+            <option value="21-50">21 - 50</option>
+            <option value="50+">50+</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Anything else we should know?</label>
+          <textarea name="notes" placeholder="Tell us about your typical projects, locations, timeline..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Request Partnership Info</button>
+      </form>
+      <div id="formSuccess" style="display:none; text-align:center; padding: 40px 0;">
+        <h3 style="margin-bottom: 8px;">We got your info.</h3>
+        <p style="opacity:0.8;">Someone from our team will reach out within 24 hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Windsanity HVAC | Veteran-Owned | Serving All of Texas</p>
+      <p style="margin-top: 4px;"><a href="/" style="color: var(--blue); text-decoration: none;">Residential Services</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('b2bForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      
+      try {
+        const res = await fetch('/.netlify/functions/submit-b2b', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please call us at (512) 555-0123.');
+        }
+      } catch (err) {
+        alert('Something went wrong. Please call us at (512) 555-0123.');
+      }
+    });
+  </script>
+</body>
+</html>
