@@ -248,18 +248,8 @@
               <input type="text" id="dimensions" name="dimensions" placeholder="e.g. 12x15 or 500 sq ft" required>
             </div>
             <div class="form-group">
-              <label for="city">Region of Texas</label>
-              <select id="city" name="city" required>
-                <option value="">Select your region</option>
-                <option>Houston / Gulf Coast</option>
-                <option>Dallas / Fort Worth</option>
-                <option>Austin / Central Texas</option>
-                <option>San Antonio / Hill Country</option>
-                <option>East Texas</option>
-                <option>West Texas</option>
-                <option>South Texas / Rio Grande Valley</option>
-                <option>North Texas / Panhandle</option>
-              </select>
+              <label for="city">Zip Code</label>
+              <input type="text" id="city" name="city" placeholder="e.g. 77001" pattern="[0-9]{5}" maxlength="5" required>
             </div>
           </div>
           <div class="form-group">
