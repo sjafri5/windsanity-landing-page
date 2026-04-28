@@ -1528,12 +1528,66 @@
   <input name="name">
   <input name="phone">
   <input name="zip">
+  <input name="utm_source">
+  <input name="utm_medium">
+  <input name="utm_campaign">
+  <input name="utm_content">
+  <input name="utm_term">
+  <input name="fbclid">
+  <input name="fbc">
   <input name="rv_type">
   <input name="source">
 </form>
 
 <script>
 (function() {
+  // --- UTM & fbclid capture ---
+  var params = new URLSearchParams(window.location.search);
+  var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var utmData = {};
+  utmKeys.forEach(function(k) { if (params.get(k)) utmData[k] = params.get(k); });
+  var fbclid = params.get('fbclid') || '';
+
+  // Build fbc cookie value: fb.1.{timestamp}.{fbclid}
+  var fbc = '';
+  if (fbclid) {
+    fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+  } else {
+    var match = document.cookie.match(/(?:^|;\s*)_fbc=([^;]*)/);
+    if (match) fbc = decodeURIComponent(match[1]);
+  }
+
+  // Store in sessionStorage so they persist across page interactions
+  if (Object.keys(utmData).length) sessionStorage.setItem('ws_utm', JSON.stringify(utmData));
+  if (fbclid) sessionStorage.setItem('ws_fbclid', fbclid);
+  if (fbc) sessionStorage.setItem('ws_fbc', fbc);
+
+  // Restore from sessionStorage if not in current URL
+  var storedUtm = {};
+  try { storedUtm = JSON.parse(sessionStorage.getItem('ws_utm') || '{}'); } catch(e) {}
+  if (!Object.keys(utmData).length && Object.keys(storedUtm).length) utmData = storedUtm;
+  if (!fbclid) fbclid = sessionStorage.getItem('ws_fbclid') || '';
+  if (!fbc) fbc = sessionStorage.getItem('ws_fbc') || '';
+
+  // --- ViewContent event on pricing section scroll ---
+  var viewContentFired = false;
+  var pricingEl = document.getElementById('pricing-section');
+  if (pricingEl) {
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !viewContentFired) {
+        viewContentFired = true;
+        if (typeof fbq === 'function') {
+          fbq('track', 'ViewContent', {
+            content_name: 'rv',
+            content_category: 'rv_pricing'
+          });
+        }
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(pricingEl);
+  }
+
   var zipInput = document.getElementById('zip-input');
   var phoneInput = document.getElementById('phone-input');
   var step1Btn = document.getElementById('step1-btn');
@@ -1591,13 +1645,11 @@
     step2Btn.disabled = true;
     step2Btn.textContent = 'Submitting…';
 
-    var formData = {
-      name: name,
-      phone: phoneInput.value,
-      zip: zipInput.value,
-      rv_type: rvType,
-      source: 'windsanity-rv-landing-page'
-    };
+    // Build source_detail with UTM data
+    var sourceParts = ['RV', zipInput.value, rvType];
+    if (utmData.utm_campaign) sourceParts.push('campaign:' + utmData.utm_campaign);
+    if (utmData.utm_content) sourceParts.push('ad:' + utmData.utm_content);
+    if (fbclid) sourceParts.push('fbclid:' + fbclid);
 
     // Send to Supabase
     try {
@@ -1605,11 +1657,11 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          city: formData.zip,
-          dimensions: formData.rv_type,
-          source_detail: 'RV: ' + formData.zip + ' - ' + formData.rv_type
+          name: name,
+          phone: phoneInput.value,
+          city: zipInput.value,
+          dimensions: rvType,
+          source_detail: sourceParts.join(' | ')
         })
       });
       console.log('Supabase save:', sbRes.status);
@@ -1619,15 +1671,28 @@
     try {
       var netlifyBody = new URLSearchParams();
       netlifyBody.append('form-name', 'quote-rv');
-      netlifyBody.append('name', formData.name);
-      netlifyBody.append('phone', formData.phone);
-      netlifyBody.append('zip', formData.zip);
-      netlifyBody.append('rv_type', formData.rv_type);
-      netlifyBody.append('source', formData.source);
+      netlifyBody.append('name', name);
+      netlifyBody.append('phone', phoneInput.value);
+      netlifyBody.append('zip', zipInput.value);
+      netlifyBody.append('rv_type', rvType);
+      netlifyBody.append('source', 'windsanity-rv-landing-page');
+      netlifyBody.append('utm_source', utmData.utm_source || '');
+      netlifyBody.append('utm_medium', utmData.utm_medium || '');
+      netlifyBody.append('utm_campaign', utmData.utm_campaign || '');
+      netlifyBody.append('utm_content', utmData.utm_content || '');
+      netlifyBody.append('utm_term', utmData.utm_term || '');
+      netlifyBody.append('fbclid', fbclid);
+      netlifyBody.append('fbc', fbc);
       await fetch('/', { method: 'POST', body: netlifyBody });
     } catch (err) {}
 
-    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+    // Fire Meta Pixel Lead event with content params
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_name: 'rv',
+        content_category: 'rv_quote'
+      });
+    }
 
     step2.style.display = 'none';
     formSuccess.style.display = 'block';

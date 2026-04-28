@@ -1549,20 +1549,75 @@
   <input name="zip">
   <input name="sqft">
   <input name="source">
+  <input name="utm_source">
+  <input name="utm_medium">
+  <input name="utm_campaign">
+  <input name="utm_content">
+  <input name="utm_term">
+  <input name="fbclid">
+  <input name="fbc">
 </form>
 
 <script>
 (function() {
-  const zipInput = document.getElementById('zip-input');
-  const phoneInput = document.getElementById('phone-input');
-  const step1Btn = document.getElementById('step1-btn');
-  const step1 = document.getElementById('form-step-1');
-  const step2 = document.getElementById('form-step-2');
-  const nameInput = document.getElementById('name-input');
-  const sqftInput = document.getElementById('sqft-input');
-  const step2Btn = document.getElementById('step2-btn');
-  const formSuccess = document.getElementById('form-success');
-  const finalCtaBtn = document.getElementById('final-cta-btn');
+  // --- UTM & fbclid capture ---
+  var params = new URLSearchParams(window.location.search);
+  var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var utmData = {};
+  utmKeys.forEach(function(k) { if (params.get(k)) utmData[k] = params.get(k); });
+  var fbclid = params.get('fbclid') || '';
+
+  // Build fbc cookie value: fb.1.{timestamp}.{fbclid}
+  var fbc = '';
+  if (fbclid) {
+    fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+  } else {
+    // Try to read existing _fbc cookie
+    var match = document.cookie.match(/(?:^|;\s*)_fbc=([^;]*)/);
+    if (match) fbc = decodeURIComponent(match[1]);
+  }
+
+  // Store UTM + fbclid in sessionStorage so they persist across page interactions
+  if (Object.keys(utmData).length) sessionStorage.setItem('ws_utm', JSON.stringify(utmData));
+  if (fbclid) sessionStorage.setItem('ws_fbclid', fbclid);
+  if (fbc) sessionStorage.setItem('ws_fbc', fbc);
+
+  // Restore from sessionStorage if not in current URL
+  var storedUtm = {};
+  try { storedUtm = JSON.parse(sessionStorage.getItem('ws_utm') || '{}'); } catch(e) {}
+  if (!Object.keys(utmData).length && Object.keys(storedUtm).length) utmData = storedUtm;
+  if (!fbclid) fbclid = sessionStorage.getItem('ws_fbclid') || '';
+  if (!fbc) fbc = sessionStorage.getItem('ws_fbc') || '';
+
+  // --- ViewContent event on pricing section scroll ---
+  var viewContentFired = false;
+  var pricingEl = document.getElementById('pricing-section');
+  if (pricingEl) {
+    var observer = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !viewContentFired) {
+        viewContentFired = true;
+        if (typeof fbq === 'function') {
+          fbq('track', 'ViewContent', {
+            content_name: 'home',
+            content_category: 'home_pricing'
+          });
+        }
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(pricingEl);
+  }
+
+  var zipInput = document.getElementById('zip-input');
+  var phoneInput = document.getElementById('phone-input');
+  var step1Btn = document.getElementById('step1-btn');
+  var step1 = document.getElementById('form-step-1');
+  var step2 = document.getElementById('form-step-2');
+  var nameInput = document.getElementById('name-input');
+  var sqftInput = document.getElementById('sqft-input');
+  var step2Btn = document.getElementById('step2-btn');
+  var formSuccess = document.getElementById('form-success');
+  var finalCtaBtn = document.getElementById('final-cta-btn');
 
   // Restrict ZIP to digits only
   zipInput.addEventListener('input', function() {
@@ -1571,7 +1626,7 @@
 
   // Auto-format phone on blur
   phoneInput.addEventListener('blur', function() {
-    const digits = this.value.replace(/\D/g, '');
+    var digits = this.value.replace(/\D/g, '');
     if (digits.length === 10) {
       this.value = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
     }
@@ -1579,9 +1634,9 @@
 
   // Step 1 → Step 2
   step1Btn.addEventListener('click', function() {
-    const zipVal = zipInput.value.replace(/\D/g, '');
-    const phoneVal = phoneInput.value.replace(/\D/g, '');
-    let valid = true;
+    var zipVal = zipInput.value.replace(/\D/g, '');
+    var phoneVal = phoneInput.value.replace(/\D/g, '');
+    var valid = true;
 
     if (zipVal.length < 5) {
       zipInput.classList.add('shake');
@@ -1595,7 +1650,6 @@
     }
     if (!valid) return;
 
-    // Track step 1 completion
     if (typeof fbq === 'function') { fbq('trackCustom', 'QuoteStep1'); }
 
     step1.style.display = 'none';
@@ -1604,8 +1658,8 @@
 
   // Step 2 → Submit
   step2Btn.addEventListener('click', async function() {
-    const name = nameInput.value.trim();
-    const sqft = sqftInput.value.trim();
+    var name = nameInput.value.trim();
+    var sqft = sqftInput.value.trim();
     if (!name) {
       nameInput.classList.add('shake');
       setTimeout(function() { nameInput.classList.remove('shake'); }, 300);
@@ -1615,25 +1669,23 @@
     step2Btn.disabled = true;
     step2Btn.textContent = 'Submitting…';
 
-    const formData = {
-      name: name,
-      phone: phoneInput.value,
-      zip: zipInput.value,
-      sqft: sqft,
-      source: 'windsanity-landing-page-v2'
-    };
+    // Build source_detail with UTM data
+    var sourceParts = [zipInput.value, sqft];
+    if (utmData.utm_campaign) sourceParts.push('campaign:' + utmData.utm_campaign);
+    if (utmData.utm_content) sourceParts.push('ad:' + utmData.utm_content);
+    if (fbclid) sourceParts.push('fbclid:' + fbclid);
 
-    // Send to Supabase via serverless function
+    // Send to Supabase
     try {
-      const sbRes = await fetch('/.netlify/functions/submit-lead', {
+      var sbRes = await fetch('/.netlify/functions/submit-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          city: formData.zip,
-          dimensions: formData.sqft,
-          source_detail: formData.zip + ' - ' + formData.sqft
+          name: name,
+          phone: phoneInput.value,
+          city: zipInput.value,
+          dimensions: sqft,
+          source_detail: sourceParts.join(' | ')
         })
       });
       console.log('Supabase save:', sbRes.status);
@@ -1641,18 +1693,30 @@
 
     // Submit to Netlify Forms
     try {
-      const netlifyBody = new URLSearchParams();
+      var netlifyBody = new URLSearchParams();
       netlifyBody.append('form-name', 'quote');
-      netlifyBody.append('name', formData.name);
-      netlifyBody.append('phone', formData.phone);
-      netlifyBody.append('zip', formData.zip);
-      netlifyBody.append('sqft', formData.sqft);
-      netlifyBody.append('source', formData.source);
+      netlifyBody.append('name', name);
+      netlifyBody.append('phone', phoneInput.value);
+      netlifyBody.append('zip', zipInput.value);
+      netlifyBody.append('sqft', sqft);
+      netlifyBody.append('source', 'windsanity-landing-page-v2');
+      netlifyBody.append('utm_source', utmData.utm_source || '');
+      netlifyBody.append('utm_medium', utmData.utm_medium || '');
+      netlifyBody.append('utm_campaign', utmData.utm_campaign || '');
+      netlifyBody.append('utm_content', utmData.utm_content || '');
+      netlifyBody.append('utm_term', utmData.utm_term || '');
+      netlifyBody.append('fbclid', fbclid);
+      netlifyBody.append('fbc', fbc);
       await fetch('/', { method: 'POST', body: netlifyBody });
     } catch (err) {}
 
-    // Fire Meta Pixel Lead event
-    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+    // Fire Meta Pixel Lead event with content params
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_name: 'home',
+        content_category: 'home_quote'
+      });
+    }
 
     step2.style.display = 'none';
     formSuccess.style.display = 'block';
@@ -1660,19 +1724,16 @@
 
   // Scroll to form helper
   function scrollToForm() {
-    const formCard = document.getElementById('quote-form-card');
-    const offset = formCard.getBoundingClientRect().top + window.pageYOffset - 80;
+    var formCard = document.getElementById('quote-form-card');
+    var offset = formCard.getBoundingClientRect().top + window.pageYOffset - 80;
     window.scrollTo({ top: offset, behavior: 'smooth' });
   }
 
-  // Final CTA → scroll to form
   finalCtaBtn.addEventListener('click', scrollToForm);
 
-  // Nav CTA button → scroll to form
   var navCtaBtn = document.getElementById('nav-cta-btn');
   if (navCtaBtn) { navCtaBtn.addEventListener('click', scrollToForm); }
 
-  // Pricing card "Get quote" buttons → scroll to form
   document.querySelectorAll('[data-scroll-to-form]').forEach(function(btn) {
     btn.addEventListener('click', scrollToForm);
   });
