@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini-Splits for RVs & Campers | Windsanity — Quiet, Efficient Cooling</title>
+  <meta name="description" content="Upgrade your RV's cooling with a ductless mini-split. Quieter than rooftop AC, 40% more efficient. Units from $850. Veteran-owned, EPA certified.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1e56a0;
+      --primary-dark: #0a2540;
+      --primary-light: #6ea8e6;
+      --bg: #ffffff;
+      --bg-subtle: #f7fafd;
+      --bg-tint: #fafcfe;
+      --surface-tint: #eaf3ff;
+      --surface-active: #f4f9ff;
+      --border: #e1ebf5;
+      --border-soft: #eef3f8;
+      --border-input: #d1e0f5;
+      --text: #0a2540;
+      --text-muted: #4a6584;
+      --text-subtle: #7a97b8;
+      --star: #fbb040;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      line-height: 1.5;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-wrap {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--bg);
+    }
+
+    /* URGENCY BAR */
+    .urgency-bar {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 16px;
+      font-size: 13px;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    /* NAV */
+    .nav-bar {
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e6ecf4;
+      background: #fff;
+      z-index: 100;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .nav-wordmark {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .nav-links { display: none; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-phone {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .nav-cta-btn {
+      display: none;
+      padding: 10px 18px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      font-family: inherit;
+      transition: filter 0.2s;
+    }
+    .nav-cta-btn:hover { filter: brightness(1.1); }
+
+    /* HERO */
+    .hero {
+      padding: 28px 20px 20px;
+    }
+    .review-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      background: var(--surface-tint);
+      color: var(--primary);
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      color: var(--text);
+    }
+    .hero-sub {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-top: 14px;
+      margin-bottom: 20px;
+    }
+    .hero-image {
+      height: 200px;
+      border-radius: 12px;
+      border: 1px solid var(--border-input);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #e8eff8 0%, #d4e4f4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-image-placeholder {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      padding: 20px;
+    }
+    .hero-image-placeholder .icon {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* HERO FEATURE BULLETS (desktop only) */
+    .hero-features { display: none; }
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .hero-feature-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--surface-tint);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* FORM CARD TRUST FOOTER (desktop) */
+    .form-trust-footer { display: none; }
+    .form-card-eyebrow { display: none; }
+    .form-card-title { display: none; }
+    .form-card-desc { display: none; }
+    .tier-card-btn { display: none; }
+    .included-desc { display: none; }
+    .final-cta-phone-btn { display: none; }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .form-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 999px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .form-heading {
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .form-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 5px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .form-input {
+      width: 100%;
+      padding: 13px 12px;
+      font-size: 16px;
+      border: 1.5px solid var(--border-input);
+      border-radius: 10px;
+      background: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--primary); }
+    .form-input.shake { animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .form-input-stack {
+      width: 100%;
+      padding: 13px 14px;
+      font-size: 15px;
+      border: 1.5px solid var(--border-input);
+      border-radius: 10px;
+      background: #fff;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 8px;
+      transition: border-color 0.2s;
+    }
+    .form-input-stack:focus { border-color: var(--primary); }
+    .cta-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 15px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(30,86,160,0.33);
+      font-family: inherit;
+      transition: filter 0.2s, transform 0.1s;
+    }
+    .cta-btn:hover { filter: brightness(1.1); }
+    .cta-btn:active { transform: scale(0.98); }
+    .cta-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .form-micro {
+      font-size: 11px;
+      color: var(--text-subtle);
+      text-align: center;
+      margin-top: 10px;
+    }
+    .form-success {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .form-success-icon { font-size: 48px; margin-bottom: 12px; }
+    .form-success h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #16a34a;
+      margin-bottom: 8px;
+    }
+    .form-success p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* TRUST STRIP */
+    .trust-strip {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--bg-tint);
+    }
+    .trust-item { text-align: center; }
+    .trust-number {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .trust-label {
+      font-size: 11px;
+      color: var(--text-subtle);
+      margin-top: 2px;
+    }
+
+    /* PAIN POINTS */
+    .pain-points {
+      padding: 32px 20px 20px;
+    }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .pain-points h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+    }
+    .pain-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+    .pain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pain-card {
+      display: flex;
+      align-items: flex-start;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      gap: 14px;
+    }
+    .pain-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface-tint);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .pain-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .pain-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* PRICING */
+    .pricing {
+      padding: 32px 20px 20px;
+    }
+    .pricing h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+    }
+    .pricing-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+    .tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tier-card {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      position: relative;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .tier-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 6px 20px rgba(10,37,64,0.08);
+    }
+    .tier-card.popular {
+      border: 2px solid var(--primary);
+      background: var(--surface-active);
+    }
+    .tier-badge {
+      position: absolute;
+      top: -9px;
+      left: 14px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .btu-badge {
+      width: 52px;
+      height: 52px;
+      background: var(--surface-tint);
+      color: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .btu-badge.popular-badge {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btu-value { font-size: 14px; font-weight: 800; line-height: 1; }
+    .btu-label { font-size: 8px; font-weight: 600; opacity: 0.9; margin-top: 2px; }
+    .tier-info { flex: 1; }
+    .tier-tag { font-size: 11px; color: var(--text-subtle); font-weight: 500; }
+    .tier-sqft { font-size: 14px; font-weight: 700; margin-top: 1px; }
+    .tier-price-wrap { text-align: right; }
+    .tier-price {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .tier-monthly {
+      font-size: 10px;
+      color: var(--text-subtle);
+      font-weight: 500;
+    }
+
+    /* COMPARISON */
+    .comparison {
+      padding: 32px 20px 20px;
+      background: var(--bg-subtle);
+    }
+    .comparison h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .comparison-table th {
+      text-align: left;
+      padding: 10px 12px;
+      background: var(--primary-dark);
+      color: #fff;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .comparison-table th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+    .comparison-table th:last-child {
+      border-radius: 0 8px 0 0;
+      text-align: center;
+    }
+    .comparison-table th:nth-child(2) {
+      text-align: center;
+    }
+    .comparison-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+    .comparison-table td:nth-child(2),
+    .comparison-table td:nth-child(3) {
+      text-align: center;
+    }
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    .comparison-table .winner {
+      color: #16a34a;
+      font-weight: 700;
+    }
+    .comparison-table .loser {
+      color: var(--text-subtle);
+    }
+
+    /* WHATS INCLUDED */
+    .included {
+      padding: 24px 20px;
+      background: var(--primary-dark);
+      color: #fff;
+      margin-top: 20px;
+    }
+    .included-inner {}
+    .included .eyebrow { color: var(--primary-light); }
+    .included h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+    .included-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .included-item {
+      padding: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .included-check {
+      color: var(--primary-light);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* REVIEWS */
+    .reviews {
+      padding: 32px 20px;
+    }
+    .reviews h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .review-card {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+    .review-stars {
+      color: var(--star);
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .review-quote {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .review-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: var(--surface-tint);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .review-name { font-size: 13px; font-weight: 700; }
+    .review-meta { font-size: 11px; color: var(--text-subtle); }
+    .review-verified {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 3px 6px;
+      background: #f0f8ff;
+      color: var(--primary);
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .review-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      background: var(--surface-tint);
+      color: var(--primary);
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* FAQ */
+    .faq {
+      padding: 24px 20px;
+      background: var(--bg-subtle);
+    }
+    .faq h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      margin-bottom: 14px;
+    }
+    .faq details {
+      padding: 14px 16px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .faq summary {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::marker { display: none; content: ''; }
+    .faq-indicator {
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 600;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+      margin-left: 8px;
+    }
+    .faq details[open] .faq-indicator { transform: rotate(45deg); }
+    .faq details p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin: 8px 0 0;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      padding: 36px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      text-align: center;
+    }
+    .final-cta h2 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .final-cta-sub {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 18px;
+    }
+    .final-cta-btn {
+      width: 100%;
+      padding: 16px;
+      background: #fff;
+      color: var(--primary);
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      font-family: inherit;
+      transition: filter 0.2s, transform 0.1s;
+    }
+    .final-cta-btn:hover { filter: brightness(0.95); }
+    .final-cta-btn:active { transform: scale(0.98); }
+    .final-cta-phone {
+      display: block;
+      margin-top: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      padding: 20px;
+      background: var(--primary-dark);
+      color: var(--primary-light);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* RESPONSIVE — TABLET */
+    @media (min-width: 481px) and (max-width: 1023px) {
+      body {
+        background: linear-gradient(180deg, #f0f5fb 0%, #e8eff8 100%);
+      }
+      .page-wrap {
+        max-width: 560px;
+        box-shadow: 0 0 40px rgba(10,37,64,0.08);
+      }
+      .hero-image { height: 240px; }
+      .tier-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .pain-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* RESPONSIVE — DESKTOP */
+    @media (min-width: 1024px) {
+      body { background: #fff; }
+      .page-wrap {
+        max-width: 100%;
+        box-shadow: none;
+        background: none;
+      }
+
+      .urgency-bar { letter-spacing: 0.3px; }
+
+      .nav-bar {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 18px 32px;
+        border-bottom: 1px solid #e6ecf4;
+      }
+      .nav-logo { width: 36px; height: 36px; border-radius: 7px; font-size: 16px; }
+      .nav-left { gap: 10px; }
+      .nav-wordmark { font-size: 17px; }
+      .nav-phone { color: var(--text); font-size: 14px; }
+      .nav-cta-btn { display: inline-block; }
+
+      /* HERO — two-column */
+      .hero {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 56px 32px 72px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .review-pill {
+        font-size: 12px;
+        padding: 6px 12px;
+        gap: 8px;
+        letter-spacing: 0.4px;
+        margin-bottom: 20px;
+      }
+      .hero h1 {
+        font-size: 58px;
+        line-height: 1.02;
+        letter-spacing: -2px;
+      }
+      .hero-sub {
+        font-size: 19px;
+        margin-top: 22px;
+        margin-bottom: 32px;
+        max-width: 560px;
+      }
+      .hero-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 32px;
+        max-width: 520px;
+      }
+      .hero-image {
+        height: 340px;
+        border-radius: 16px;
+        margin-bottom: 0;
+      }
+
+      /* FORM CARD — desktop */
+      .form-card {
+        position: sticky;
+        top: 24px;
+        background: #fff;
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 20px 50px rgba(10,37,64,0.08);
+      }
+      .form-card-eyebrow {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        color: var(--primary);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .form-card-title {
+        display: block;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.6px;
+        line-height: 1.15;
+        margin-bottom: 6px;
+      }
+      .form-card-desc {
+        display: block;
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .form-header { display: none; }
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 4px;
+      }
+      .form-label { letter-spacing: 0.5px; margin-bottom: 6px; }
+      .form-input { padding: 14px; font-size: 15px; }
+      .cta-btn { padding: 16px; box-shadow: 0 6px 18px rgba(30,86,160,0.33); }
+      .form-micro { font-size: 12px; margin-top: 14px; line-height: 1.5; }
+      .form-trust-footer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 20px;
+        padding-top: 18px;
+        border-top: 1px solid var(--border-soft);
+      }
+      .form-trust-item { text-align: center; }
+      .form-trust-number {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.3px;
+      }
+      .form-trust-label {
+        font-size: 10px;
+        color: var(--text-subtle);
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .trust-strip { display: none; }
+
+      /* PAIN POINTS — grid */
+      .pain-points {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 80px 32px 40px;
+      }
+      .pain-points .eyebrow { text-align: center; font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; }
+      .pain-points h2 { text-align: center; font-size: 44px; letter-spacing: -1.4px; }
+      .pain-sub { text-align: center; font-size: 17px; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
+      .pain-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+      .pain-card {
+        flex-direction: column;
+        padding: 24px;
+        border-radius: 14px;
+        text-align: center;
+        align-items: center;
+      }
+      .pain-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        border-radius: 12px;
+        margin-bottom: 4px;
+      }
+
+      /* PRICING — 3-column */
+      .pricing {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 80px 32px;
+        background: var(--bg-subtle);
+        border-top: 1px solid var(--border);
+      }
+      .pricing .eyebrow { text-align: center; font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; }
+      .pricing h2 { text-align: center; font-size: 48px; letter-spacing: -1.5px; line-height: 1.05; }
+      .pricing-sub { text-align: center; font-size: 17px; margin-top: 14px; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
+      .tier-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .tier-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px;
+        border-radius: 14px;
+      }
+      .tier-card.popular { box-shadow: 0 12px 32px rgba(10,37,64,0.08); }
+      .tier-badge { top: -11px; left: 20px; padding: 4px 10px; letter-spacing: 0.8px; }
+      .btu-badge { width: 56px; height: 56px; margin-right: 0; margin-bottom: 18px; border-radius: 12px; }
+      .btu-value { font-size: 15px; }
+      .btu-label { font-size: 9px; }
+      .tier-info { margin-bottom: 16px; }
+      .tier-tag { font-size: 13px; margin-bottom: 4px; }
+      .tier-sqft { font-size: 16px; }
+      .tier-price-wrap { text-align: left; }
+      .tier-price { font-size: 36px; letter-spacing: -1px; line-height: 1; }
+      .tier-monthly { font-size: 12px; margin-top: 6px; }
+      .tier-card-btn {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        font-family: inherit;
+        transition: filter 0.2s;
+      }
+      .tier-card-btn:hover { filter: brightness(1.1); }
+      .tier-card-btn.primary { background: var(--primary); color: #fff; border: none; }
+      .tier-card-btn.outline { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
+
+      /* COMPARISON */
+      .comparison {
+        padding: 80px 32px;
+      }
+      .comparison h2 { text-align: center; font-size: 40px; letter-spacing: -1.2px; margin-bottom: 40px; }
+      .comparison-table {
+        max-width: 780px;
+        margin: 0 auto;
+        font-size: 15px;
+      }
+      .comparison-table th { padding: 14px 20px; font-size: 12px; }
+      .comparison-table td { padding: 14px 20px; }
+
+      /* INCLUDED */
+      .included { padding: 80px 32px; margin-top: 0; }
+      .included-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 64px;
+        align-items: center;
+      }
+      .included .eyebrow { font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; }
+      .included h2 { font-size: 44px; letter-spacing: -1.4px; line-height: 1.05; margin-bottom: 16px; }
+      .included-desc {
+        display: block;
+        font-size: 16px;
+        color: #a8c1dd;
+        line-height: 1.55;
+      }
+      .included-grid { gap: 12px; }
+      .included-item { padding: 14px 16px; border-radius: 10px; font-size: 14px; gap: 10px; }
+      .included-check { font-size: 16px; }
+
+      /* REVIEWS — 3-column */
+      .reviews {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 80px 32px;
+      }
+      .reviews .eyebrow { text-align: center; font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; }
+      .reviews h2 { text-align: center; font-size: 44px; letter-spacing: -1.4px; line-height: 1.05; margin-bottom: 48px; }
+      .review-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .review-card { padding: 24px; border-radius: 14px; }
+      .review-stars { font-size: 15px; margin-bottom: 12px; }
+      .review-quote { font-size: 15px; line-height: 1.55; margin-bottom: 18px; }
+      .review-author { gap: 10px; }
+      .review-avatar { width: 36px; height: 36px; font-size: 13px; }
+      .review-name { font-size: 14px; }
+      .review-meta { font-size: 12px; }
+      .review-verified { font-size: 10px; padding: 4px 7px; }
+
+      /* FAQ */
+      .faq { padding: 80px 32px; }
+      .faq-inner { max-width: 820px; margin: 0 auto; }
+      .faq h2 { text-align: center; font-size: 40px; letter-spacing: -1.2px; margin-bottom: 40px; }
+      .faq details { padding: 18px 22px; border-radius: 12px; margin-bottom: 10px; }
+      .faq summary { font-size: 16px; }
+      .faq-indicator { font-size: 20px; }
+      .faq details p { font-size: 15px; line-height: 1.6; margin: 10px 0 0; }
+
+      /* FINAL CTA */
+      .final-cta { padding: 96px 32px; }
+      .final-cta-inner { max-width: 760px; margin: 0 auto; }
+      .final-cta h2 { font-size: 56px; letter-spacing: -1.8px; line-height: 1; margin-bottom: 16px; }
+      .final-cta-sub { font-size: 19px; margin-bottom: 32px; }
+      .final-cta-btn { width: auto; padding: 18px 34px; }
+      .final-cta-phone { display: none; }
+      .final-cta-phone-btn {
+        display: inline-block;
+        padding: 18px 34px;
+        color: #fff;
+        border: 1.5px solid rgba(255,255,255,0.4);
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        transition: background 0.2s;
+      }
+      .final-cta-phone-btn:hover { background: rgba(255,255,255,0.1); }
+      .final-cta-buttons {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+      }
+
+      .site-footer { padding: 28px 32px; font-size: 12px; }
+    }
+  </style>
+  <!-- Facebook Pixel -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1574746923780972");fbq("track","PageView");</script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1574746923780972&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- 1. Urgency Bar -->
+  <div class="urgency-bar">
+    ⚡ Summer camping season — RV install slots filling fast
+  </div>
+
+  <!-- 2. Nav Bar -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <div class="nav-logo">W</div>
+      <span class="nav-wordmark">WINDSANITY</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#pricing-section">Pricing</a>
+      <a href="#included-section">What's included</a>
+      <a href="#reviews-section">Reviews</a>
+      <a href="#faq-section">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <a href="tel:+12184151179" class="nav-phone">
+        <span style="font-size:14px">📞</span> (218) 415-1179
+      </a>
+      <button class="nav-cta-btn" id="nav-cta-btn">Get free quote</button>
+    </div>
+  </div>
+
+  <!-- 3. Hero -->
+  <div class="hero" id="hero-section">
+    <div class="hero-left">
+      <div class="review-pill">
+        <span>★★★★★</span> <span>Rated 4.9 · 2,000+ installs nationwide</span>
+      </div>
+
+      <h1>Ditch the noisy rooftop AC. Cool your RV for real.</h1>
+
+      <p class="hero-sub">Mini-split units from $850 — whisper-quiet, 40% more efficient than rooftop AC. Installed by EPA-certified techs.</p>
+
+      <!-- Feature bullets (desktop) -->
+      <div class="hero-features">
+        <div class="hero-feature"><span class="hero-feature-check">✓</span> 75% quieter than rooftop</div>
+        <div class="hero-feature"><span class="hero-feature-check">✓</span> Runs on 20-amp circuit</div>
+        <div class="hero-feature"><span class="hero-feature-check">✓</span> Heats & cools</div>
+        <div class="hero-feature"><span class="hero-feature-check">✓</span> 5-year warranty</div>
+      </div>
+
+      <!-- Hero image -->
+      <div class="hero-image">
+        <div class="hero-image-placeholder">
+          <span class="icon">🚐</span>
+          Mini-split installed in RV
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Quote Form -->
+    <div class="form-card" id="quote-form-card">
+      <div class="form-card-eyebrow">Free · 24 Hour Response</div>
+      <div class="form-card-title">Get your RV install price</div>
+      <div class="form-card-desc">Tell us about your rig. We'll call with an exact price — no gimmicks.</div>
+
+      <!-- Step 1 -->
+      <div id="form-step-1">
+        <div class="form-header">
+          <div class="step-circle">1</div>
+          <span class="form-heading">Get your free RV quote in 24 hours</span>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label class="form-label" for="zip-input">ZIP Code</label>
+            <input class="form-input" id="zip-input" type="text" inputmode="numeric" placeholder="75001" maxlength="5">
+          </div>
+          <div>
+            <label class="form-label" for="phone-input">Phone</label>
+            <input class="form-input" id="phone-input" type="tel" inputmode="tel" placeholder="(512) 555-0199">
+          </div>
+        </div>
+        <button class="cta-btn" id="step1-btn" type="button">Get my free RV quote →</button>
+        <p class="form-micro">✓ No obligation · ✓ Real price in 24 hrs · ✓ We won't spam you</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="form-step-2" style="display:none">
+        <div class="form-header">
+          <div class="step-circle">2</div>
+          <span class="form-heading">Almost done — tell us about your rig</span>
+        </div>
+        <input class="form-input-stack" id="name-input" type="text" placeholder="Full name">
+        <input class="form-input-stack" id="rv-input" type="text" placeholder="RV type & length (e.g. 32ft Class A)">
+        <button class="cta-btn" id="step2-btn" type="button">Get my price →</button>
+      </div>
+
+      <!-- Success state -->
+      <div id="form-success" class="form-success" style="display:none">
+        <div class="form-success-icon">✅</div>
+        <h3>Quote request received.</h3>
+        <p>We'll review your RV details and get back to you within 24 hours with a recommendation and pricing.</p>
+      </div>
+
+      <!-- Trust footer inside card (desktop) -->
+      <div class="form-trust-footer">
+        <div class="form-trust-item">
+          <div class="form-trust-number">2,000+</div>
+          <div class="form-trust-label">Installs</div>
+        </div>
+        <div class="form-trust-item">
+          <div class="form-trust-number">4.9★</div>
+          <div class="form-trust-label">340 reviews</div>
+        </div>
+        <div class="form-trust-item">
+          <div class="form-trust-number">EPA</div>
+          <div class="form-trust-label">Certified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Trust Strip -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-number">2,000+</div>
+      <div class="trust-label">Installs</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-number">4.9★</div>
+      <div class="trust-label">340+ reviews</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-number">EPA</div>
+      <div class="trust-label">Certified</div>
+    </div>
+  </div>
+
+  <!-- 6. RV Pain Points -->
+  <div class="pain-points" id="pain-section">
+    <div class="eyebrow">Why RV Owners Switch</div>
+    <h2>Your rooftop AC is holding you back.</h2>
+    <p class="pain-sub">Rooftop units are loud, inefficient, and can't keep up in real heat. Here's what you're putting up with.</p>
+    <div class="pain-list">
+      <div class="pain-card">
+        <div class="pain-icon">🔊</div>
+        <div>
+          <div class="pain-title">So loud you can't sleep</div>
+          <div class="pain-desc">Rooftop ACs hit 65+ dB — like a running dishwasher above your head. Mini-splits run at 25 dB.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🥵</div>
+        <div>
+          <div class="pain-title">Can't handle real heat</div>
+          <div class="pain-desc">Above 95°F, rooftop units struggle. Inverter mini-splits maintain temp even at 115°F.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">⚡</div>
+        <div>
+          <div class="pain-title">Kills your power budget</div>
+          <div class="pain-desc">Rooftop AC pulls 13-16 amps on startup. A mini-split runs steady on a single 20-amp circuit.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">❄️</div>
+        <div>
+          <div class="pain-title">No heat for shoulder season</div>
+          <div class="pain-desc">Most rooftop units are cool-only. Mini-splits heat down to 5°F — extend your season by months.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Pricing -->
+  <div class="pricing" id="pricing-section">
+    <div class="eyebrow">RV Pricing</div>
+    <h2>Right-sized for your rig.</h2>
+    <p class="pricing-sub">Unit prices — installation quoted separately based on your RV type and setup.</p>
+
+    <div class="tier-list">
+      <div class="tier-card">
+        <div class="btu-badge">
+          <div class="btu-value">9k</div>
+          <div class="btu-label">BTU</div>
+        </div>
+        <div class="tier-info">
+          <div class="tier-tag">Van / small trailer</div>
+          <div class="tier-sqft">Up to 200 sq ft</div>
+        </div>
+        <div class="tier-price-wrap">
+          <div class="tier-price">$850</div>
+          <div class="tier-monthly">or $47/mo</div>
+        </div>
+        <button class="tier-card-btn outline" data-scroll-to-form>Get quote →</button>
+      </div>
+
+      <div class="tier-card popular">
+        <div class="tier-badge">BEST FOR RVs</div>
+        <div class="btu-badge popular-badge">
+          <div class="btu-value">12k</div>
+          <div class="btu-label">BTU</div>
+        </div>
+        <div class="tier-info">
+          <div class="tier-tag">Travel trailer / Class C</div>
+          <div class="tier-sqft">200–350 sq ft</div>
+        </div>
+        <div class="tier-price-wrap">
+          <div class="tier-price">$950</div>
+          <div class="tier-monthly">or $53/mo</div>
+        </div>
+        <button class="tier-card-btn primary" data-scroll-to-form>Get quote →</button>
+      </div>
+
+      <div class="tier-card">
+        <div class="btu-badge">
+          <div class="btu-value">18k</div>
+          <div class="btu-label">BTU</div>
+        </div>
+        <div class="tier-info">
+          <div class="tier-tag">Class A / 5th wheel</div>
+          <div class="tier-sqft">350–500 sq ft</div>
+        </div>
+        <div class="tier-price-wrap">
+          <div class="tier-price">$1,100</div>
+          <div class="tier-monthly">or $61/mo</div>
+        </div>
+        <button class="tier-card-btn outline" data-scroll-to-form>Get quote →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Comparison Table -->
+  <div class="comparison" id="comparison-section">
+    <h2>Mini-split vs. rooftop AC</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Rooftop AC</th>
+          <th>Mini-Split</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Noise level</td>
+          <td class="loser">60-70 dB</td>
+          <td class="winner">19-25 dB ✓</td>
+        </tr>
+        <tr>
+          <td>Efficiency (SEER)</td>
+          <td class="loser">8-10</td>
+          <td class="winner">20-25 ✓</td>
+        </tr>
+        <tr>
+          <td>Heating mode</td>
+          <td class="loser">Rarely</td>
+          <td class="winner">Standard ✓</td>
+        </tr>
+        <tr>
+          <td>Startup amps</td>
+          <td class="loser">13-16A</td>
+          <td class="winner">3-5A ✓</td>
+        </tr>
+        <tr>
+          <td>Max temp performance</td>
+          <td class="loser">Struggles 95°F+</td>
+          <td class="winner">Works at 115°F ✓</td>
+        </tr>
+        <tr>
+          <td>WiFi control</td>
+          <td class="loser">No</td>
+          <td class="winner">Included ✓</td>
+        </tr>
+        <tr>
+          <td>Roof weight / drag</td>
+          <td class="loser">80-100 lbs</td>
+          <td class="winner">None ✓</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 9. What's Included -->
+  <div class="included" id="included-section">
+    <div class="included-inner">
+      <div class="included-text">
+        <div class="eyebrow">What's Included</div>
+        <h2>Everything for your RV install.</h2>
+        <p class="included-desc">No surprise line items, no "well actually" add-ons when the tech arrives at your site.</p>
+      </div>
+      <div class="included-grid">
+        <div class="included-item">
+          <span class="included-check">✓</span> WiFi smart control
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> 16ft copper line set
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> Line set covers
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> Mounting hardware
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> NG-Blu inverter unit
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> EPA-certified labor
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> System charge & test
+        </div>
+        <div class="included-item">
+          <span class="included-check">✓</span> Cleanup & haul-away
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Reviews -->
+  <div class="reviews" id="reviews-section">
+    <div class="eyebrow">RV Owner Reviews</div>
+    <h2>Hear from fellow RV owners.</h2>
+    <div class="review-list">
+
+      <div class="review-card">
+        <div class="review-tag">Class A Motorhome</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"We full-time in Arizona summers. The rooftop couldn't keep up past 2pm. The mini-split holds 72° at 110° outside and we can actually hear each other talk."</p>
+        <div class="review-author">
+          <div class="review-avatar">R</div>
+          <div>
+            <div class="review-name">Randy & Sue K.</div>
+            <div class="review-meta">Full-timers · AZ</div>
+          </div>
+          <div class="review-verified">Verified</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">Travel Trailer</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"Runs off our 30-amp hookup with room to spare. Used to trip the breaker every time the rooftop kicked on. This thing just purrs."</p>
+        <div class="review-author">
+          <div class="review-avatar">T</div>
+          <div>
+            <div class="review-name">Tom P.</div>
+            <div class="review-meta">Weekender · TX</div>
+          </div>
+          <div class="review-verified">Verified</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-tag">5th Wheel</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">"We camp in October and November now. Heat pump mode keeps us at 68° on 30° nights. Paid for itself in extended camping season alone."</p>
+        <div class="review-author">
+          <div class="review-avatar">L</div>
+          <div>
+            <div class="review-name">Lisa & Dan M.</div>
+            <div class="review-meta">Seasonal · CO</div>
+          </div>
+          <div class="review-verified">Verified</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 11. FAQ -->
+  <div class="faq" id="faq-section">
+    <div class="faq-inner">
+      <h2>RV mini-split questions</h2>
+      <details>
+        <summary>Will a mini-split work in my RV? <span class="faq-indicator">+</span></summary>
+        <p>Yes — we install in Class A, Class C, travel trailers, 5th wheels, and cargo/toy hauler conversions. We'll assess your rig and recommend the right size and mounting approach.</p>
+      </details>
+      <details>
+        <summary>Can I run it on a 30-amp hookup? <span class="faq-indicator">+</span></summary>
+        <p>Absolutely. Our 9k and 12k BTU units run on a single 20-amp circuit, leaving plenty of headroom on a 30-amp hookup for everything else.</p>
+      </details>
+      <details>
+        <summary>Where does the outdoor unit go? <span class="faq-indicator">+</span></summary>
+        <p>Depending on your rig, we mount it on the tongue, bumper, frame rail, or a custom bracket. We'll recommend the best spot during your consultation — it won't affect towing.</p>
+      </details>
+      <details>
+        <summary>Does it work on solar / boondocking? <span class="faq-indicator">+</span></summary>
+        <p>Mini-splits draw significantly less power than rooftop units. With a decent lithium battery bank (200Ah+) and solar, many owners run them off-grid for hours. We'll help you size it.</p>
+      </details>
+      <details>
+        <summary>Can I remove the rooftop AC after? <span class="faq-indicator">+</span></summary>
+        <p>Yes — many owners remove the rooftop unit to save weight (80-100 lbs), reduce drag, and improve gas mileage. We can advise on capping the roof opening.</p>
+      </details>
+      <details>
+        <summary>What's the warranty? <span class="faq-indicator">+</span></summary>
+        <p>5-year parts, 2-year labor. Compressor covered up to 10 years. Same warranty as our residential installs.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- 12. Final CTA -->
+  <div class="final-cta">
+    <div class="final-cta-inner">
+      <h2>Ready to upgrade your RV?</h2>
+      <p class="final-cta-sub">Free quote in 24 hours. Tell us about your rig and we'll handle the rest.</p>
+      <div class="final-cta-buttons">
+        <button class="final-cta-btn" id="final-cta-btn">Get my free RV quote →</button>
+        <a href="tel:+12184151179" class="final-cta-phone-btn">Call (218) 415-1179</a>
+      </div>
+      <a href="tel:+12184151179" class="final-cta-phone">or call (218) 415-1179</a>
+    </div>
+  </div>
+
+  <!-- 13. Footer -->
+  <div class="site-footer">
+    Windsanity Mini-Splits · Veteran-Owned · EPA Certified · Nationwide
+  </div>
+
+</div>
+
+<!-- Netlify Forms hidden form for detection -->
+<form name="quote-rv" netlify-honeypot="bot-field" data-netlify="true" style="display:none">
+  <input name="form-name" value="quote-rv">
+  <input name="bot-field">
+  <input name="name">
+  <input name="phone">
+  <input name="zip">
+  <input name="rv_type">
+  <input name="source">
+</form>
+
+<script>
+(function() {
+  var zipInput = document.getElementById('zip-input');
+  var phoneInput = document.getElementById('phone-input');
+  var step1Btn = document.getElementById('step1-btn');
+  var step1 = document.getElementById('form-step-1');
+  var step2 = document.getElementById('form-step-2');
+  var nameInput = document.getElementById('name-input');
+  var rvInput = document.getElementById('rv-input');
+  var step2Btn = document.getElementById('step2-btn');
+  var formSuccess = document.getElementById('form-success');
+  var finalCtaBtn = document.getElementById('final-cta-btn');
+
+  zipInput.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 5);
+  });
+
+  phoneInput.addEventListener('blur', function() {
+    var digits = this.value.replace(/\D/g, '');
+    if (digits.length === 10) {
+      this.value = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+    }
+  });
+
+  step1Btn.addEventListener('click', function() {
+    var zipVal = zipInput.value.replace(/\D/g, '');
+    var phoneVal = phoneInput.value.replace(/\D/g, '');
+    var valid = true;
+
+    if (zipVal.length < 5) {
+      zipInput.classList.add('shake');
+      setTimeout(function() { zipInput.classList.remove('shake'); }, 300);
+      valid = false;
+    }
+    if (phoneVal.length < 10) {
+      phoneInput.classList.add('shake');
+      setTimeout(function() { phoneInput.classList.remove('shake'); }, 300);
+      valid = false;
+    }
+    if (!valid) return;
+
+    if (typeof fbq === 'function') { fbq('trackCustom', 'QuoteStep1_RV'); }
+
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+  });
+
+  step2Btn.addEventListener('click', async function() {
+    var name = nameInput.value.trim();
+    var rvType = rvInput.value.trim();
+    if (!name) {
+      nameInput.classList.add('shake');
+      setTimeout(function() { nameInput.classList.remove('shake'); }, 300);
+      return;
+    }
+
+    step2Btn.disabled = true;
+    step2Btn.textContent = 'Submitting…';
+
+    var formData = {
+      name: name,
+      phone: phoneInput.value,
+      zip: zipInput.value,
+      rv_type: rvType,
+      source: 'windsanity-rv-landing-page'
+    };
+
+    // Send to Supabase
+    try {
+      var sbRes = await fetch('/.netlify/functions/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          city: formData.zip,
+          dimensions: formData.rv_type,
+          source_detail: 'RV: ' + formData.zip + ' - ' + formData.rv_type
+        })
+      });
+      console.log('Supabase save:', sbRes.status);
+    } catch (err) { console.error('Supabase save failed:', err); }
+
+    // Submit to Netlify Forms
+    try {
+      var netlifyBody = new URLSearchParams();
+      netlifyBody.append('form-name', 'quote-rv');
+      netlifyBody.append('name', formData.name);
+      netlifyBody.append('phone', formData.phone);
+      netlifyBody.append('zip', formData.zip);
+      netlifyBody.append('rv_type', formData.rv_type);
+      netlifyBody.append('source', formData.source);
+      await fetch('/', { method: 'POST', body: netlifyBody });
+    } catch (err) {}
+
+    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+
+    step2.style.display = 'none';
+    formSuccess.style.display = 'block';
+  });
+
+  function scrollToForm() {
+    var formCard = document.getElementById('quote-form-card');
+    var offset = formCard.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+
+  finalCtaBtn.addEventListener('click', scrollToForm);
+
+  var navCtaBtn = document.getElementById('nav-cta-btn');
+  if (navCtaBtn) { navCtaBtn.addEventListener('click', scrollToForm); }
+
+  document.querySelectorAll('[data-scroll-to-form]').forEach(function(btn) {
+    btn.addEventListener('click', scrollToForm);
+  });
+})();
+</script>
+
+</body>
+</html>
