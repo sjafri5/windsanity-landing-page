@@ -1560,6 +1560,22 @@
 
 <script>
 (function() {
+  // --- Helpers ---
+  function genEventId() {
+    return 'eid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+  }
+  function getFbp() {
+    var m = document.cookie.match(/(?:^|;\s*)_fbp=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  function sendCAPI(payload) {
+    fetch('/.netlify/functions/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(e) { console.error('CAPI error:', e); });
+  }
+
   // --- UTM & fbclid capture ---
   var params = new URLSearchParams(window.location.search);
   var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
@@ -1567,41 +1583,48 @@
   utmKeys.forEach(function(k) { if (params.get(k)) utmData[k] = params.get(k); });
   var fbclid = params.get('fbclid') || '';
 
-  // Build fbc cookie value: fb.1.{timestamp}.{fbclid}
   var fbc = '';
   if (fbclid) {
     fbc = 'fb.1.' + Date.now() + '.' + fbclid;
   } else {
-    // Try to read existing _fbc cookie
     var match = document.cookie.match(/(?:^|;\s*)_fbc=([^;]*)/);
     if (match) fbc = decodeURIComponent(match[1]);
   }
 
-  // Store UTM + fbclid in sessionStorage so they persist across page interactions
   if (Object.keys(utmData).length) sessionStorage.setItem('ws_utm', JSON.stringify(utmData));
   if (fbclid) sessionStorage.setItem('ws_fbclid', fbclid);
   if (fbc) sessionStorage.setItem('ws_fbc', fbc);
 
-  // Restore from sessionStorage if not in current URL
   var storedUtm = {};
   try { storedUtm = JSON.parse(sessionStorage.getItem('ws_utm') || '{}'); } catch(e) {}
   if (!Object.keys(utmData).length && Object.keys(storedUtm).length) utmData = storedUtm;
   if (!fbclid) fbclid = sessionStorage.getItem('ws_fbclid') || '';
   if (!fbc) fbc = sessionStorage.getItem('ws_fbc') || '';
 
-  // --- ViewContent event on pricing section scroll ---
+  // --- ViewContent event on pricing section scroll (browser + CAPI) ---
   var viewContentFired = false;
   var pricingEl = document.getElementById('pricing-section');
   if (pricingEl) {
     var observer = new IntersectionObserver(function(entries) {
       if (entries[0].isIntersecting && !viewContentFired) {
         viewContentFired = true;
+        var eid = genEventId();
+        var customData = { content_name: 'home', content_category: 'home_pricing' };
+
+        // Browser pixel
         if (typeof fbq === 'function') {
-          fbq('track', 'ViewContent', {
-            content_name: 'home',
-            content_category: 'home_pricing'
-          });
+          fbq('track', 'ViewContent', customData, { eventID: eid });
         }
+        // Server CAPI
+        sendCAPI({
+          events: [{
+            event_name: 'ViewContent',
+            event_id: eid,
+            source_url: window.location.href,
+            fbc: fbc, fbp: getFbp(),
+            custom_data: customData
+          }]
+        });
         observer.disconnect();
       }
     }, { threshold: 0.3 });
@@ -1619,12 +1642,10 @@
   var formSuccess = document.getElementById('form-success');
   var finalCtaBtn = document.getElementById('final-cta-btn');
 
-  // Restrict ZIP to digits only
   zipInput.addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '').slice(0, 5);
   });
 
-  // Auto-format phone on blur
   phoneInput.addEventListener('blur', function() {
     var digits = this.value.replace(/\D/g, '');
     if (digits.length === 10) {
@@ -1632,7 +1653,6 @@
     }
   });
 
-  // Step 1 → Step 2
   step1Btn.addEventListener('click', function() {
     var zipVal = zipInput.value.replace(/\D/g, '');
     var phoneVal = phoneInput.value.replace(/\D/g, '');
@@ -1669,7 +1689,6 @@
     step2Btn.disabled = true;
     step2Btn.textContent = 'Submitting…';
 
-    // Build source_detail with UTM data
     var sourceParts = [zipInput.value, sqft];
     if (utmData.utm_campaign) sourceParts.push('campaign:' + utmData.utm_campaign);
     if (utmData.utm_content) sourceParts.push('ad:' + utmData.utm_content);
@@ -1710,19 +1729,30 @@
       await fetch('/', { method: 'POST', body: netlifyBody });
     } catch (err) {}
 
-    // Fire Meta Pixel Lead event with content params
+    // Fire Lead — browser pixel + CAPI with shared event_id for dedup
+    var leadEid = genEventId();
+    var leadCustom = { content_name: 'home', content_category: 'home_quote' };
+
     if (typeof fbq === 'function') {
-      fbq('track', 'Lead', {
-        content_name: 'home',
-        content_category: 'home_quote'
-      });
+      fbq('track', 'Lead', leadCustom, { eventID: leadEid });
     }
+    sendCAPI({
+      events: [{
+        event_name: 'Lead',
+        event_id: leadEid,
+        source_url: window.location.href,
+        name: name,
+        phone: phoneInput.value,
+        zip: zipInput.value,
+        fbc: fbc, fbp: getFbp(),
+        custom_data: leadCustom
+      }]
+    });
 
     step2.style.display = 'none';
     formSuccess.style.display = 'block';
   });
 
-  // Scroll to form helper
   function scrollToForm() {
     var formCard = document.getElementById('quote-form-card');
     var offset = formCard.getBoundingClientRect().top + window.pageYOffset - 80;

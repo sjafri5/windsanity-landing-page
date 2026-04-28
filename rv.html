@@ -1537,18 +1537,63 @@
   <input name="fbc">
   <input name="rv_type">
   <input name="source">
+  <input name="variant">
 </form>
 
 <script>
 (function() {
-  // --- UTM & fbclid capture ---
+  // --- Helpers ---
+  function genEventId() {
+    return 'eid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+  }
+  function getFbp() {
+    var m = document.cookie.match(/(?:^|;\s*)_fbp=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+  function sendCAPI(payload) {
+    fetch('/.netlify/functions/meta-capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(e) { console.error('CAPI error:', e); });
+  }
+
+  // --- A/B variant assignment ---
+  // Reads ?variant=X from URL, or assigns randomly and persists in localStorage.
+  // To force a variant: /rv?variant=B
+  // To define variants, set window.defined in a <script> before this block,
+  // or they default to ['A', 'B'].
+  var defined = window.RV_VARIANTS || ['A', 'B'];
   var params = new URLSearchParams(window.location.search);
+  var variant = params.get('variant');
+  if (!variant || defined.indexOf(variant) === -1) {
+    variant = localStorage.getItem('ws_rv_variant');
+    if (!variant || defined.indexOf(variant) === -1) {
+      variant = defined[Math.floor(Math.random() * defined.length)];
+    }
+  }
+  localStorage.setItem('ws_rv_variant', variant);
+
+  // Expose variant on <body> for CSS-driven A/B changes
+  document.body.setAttribute('data-variant', variant);
+
+  // --- Apply variant mutations ---
+  // Define your A/B copy/style changes here. Variant A = control (no changes).
+  // Add more variants by extending this block.
+  if (variant === 'B') {
+    // Example: swap headline for B variant
+    var h1 = document.querySelector('.hero h1');
+    if (h1) h1.textContent = 'Your RV deserves real AC. Not a rooftop rattler.';
+    var heroSub = document.querySelector('.hero-sub');
+    if (heroSub) heroSub.textContent = 'Ductless mini-splits from $850 — 75% quieter, 40% more efficient than rooftop units. Heats too.';
+  }
+
+  // --- UTM & fbclid capture ---
   var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
   var utmData = {};
   utmKeys.forEach(function(k) { if (params.get(k)) utmData[k] = params.get(k); });
   var fbclid = params.get('fbclid') || '';
 
-  // Build fbc cookie value: fb.1.{timestamp}.{fbclid}
   var fbc = '';
   if (fbclid) {
     fbc = 'fb.1.' + Date.now() + '.' + fbclid;
@@ -1557,31 +1602,42 @@
     if (match) fbc = decodeURIComponent(match[1]);
   }
 
-  // Store in sessionStorage so they persist across page interactions
   if (Object.keys(utmData).length) sessionStorage.setItem('ws_utm', JSON.stringify(utmData));
   if (fbclid) sessionStorage.setItem('ws_fbclid', fbclid);
   if (fbc) sessionStorage.setItem('ws_fbc', fbc);
 
-  // Restore from sessionStorage if not in current URL
   var storedUtm = {};
   try { storedUtm = JSON.parse(sessionStorage.getItem('ws_utm') || '{}'); } catch(e) {}
   if (!Object.keys(utmData).length && Object.keys(storedUtm).length) utmData = storedUtm;
   if (!fbclid) fbclid = sessionStorage.getItem('ws_fbclid') || '';
   if (!fbc) fbc = sessionStorage.getItem('ws_fbc') || '';
 
-  // --- ViewContent event on pricing section scroll ---
+  // --- ViewContent event on pricing section scroll (browser + CAPI) ---
   var viewContentFired = false;
   var pricingEl = document.getElementById('pricing-section');
   if (pricingEl) {
     var observer = new IntersectionObserver(function(entries) {
       if (entries[0].isIntersecting && !viewContentFired) {
         viewContentFired = true;
+        var eid = genEventId();
+        var customData = {
+          content_name: 'rv',
+          content_category: 'rv_pricing',
+          content_ids: ['rv_variant_' + variant]
+        };
+
         if (typeof fbq === 'function') {
-          fbq('track', 'ViewContent', {
-            content_name: 'rv',
-            content_category: 'rv_pricing'
-          });
+          fbq('track', 'ViewContent', customData, { eventID: eid });
         }
+        sendCAPI({
+          events: [{
+            event_name: 'ViewContent',
+            event_id: eid,
+            source_url: window.location.href,
+            fbc: fbc, fbp: getFbp(),
+            custom_data: customData
+          }]
+        });
         observer.disconnect();
       }
     }, { threshold: 0.3 });
@@ -1645,8 +1701,7 @@
     step2Btn.disabled = true;
     step2Btn.textContent = 'Submitting…';
 
-    // Build source_detail with UTM data
-    var sourceParts = ['RV', zipInput.value, rvType];
+    var sourceParts = ['RV', 'v:' + variant, zipInput.value, rvType];
     if (utmData.utm_campaign) sourceParts.push('campaign:' + utmData.utm_campaign);
     if (utmData.utm_content) sourceParts.push('ad:' + utmData.utm_content);
     if (fbclid) sourceParts.push('fbclid:' + fbclid);
@@ -1676,6 +1731,7 @@
       netlifyBody.append('zip', zipInput.value);
       netlifyBody.append('rv_type', rvType);
       netlifyBody.append('source', 'windsanity-rv-landing-page');
+      netlifyBody.append('variant', variant);
       netlifyBody.append('utm_source', utmData.utm_source || '');
       netlifyBody.append('utm_medium', utmData.utm_medium || '');
       netlifyBody.append('utm_campaign', utmData.utm_campaign || '');
@@ -1686,13 +1742,29 @@
       await fetch('/', { method: 'POST', body: netlifyBody });
     } catch (err) {}
 
-    // Fire Meta Pixel Lead event with content params
+    // Fire Lead — browser pixel + CAPI with shared event_id for dedup
+    var leadEid = genEventId();
+    var leadCustom = {
+      content_name: 'rv',
+      content_category: 'rv_quote',
+      content_ids: ['rv_variant_' + variant]
+    };
+
     if (typeof fbq === 'function') {
-      fbq('track', 'Lead', {
-        content_name: 'rv',
-        content_category: 'rv_quote'
-      });
+      fbq('track', 'Lead', leadCustom, { eventID: leadEid });
     }
+    sendCAPI({
+      events: [{
+        event_name: 'Lead',
+        event_id: leadEid,
+        source_url: window.location.href,
+        name: name,
+        phone: phoneInput.value,
+        zip: zipInput.value,
+        fbc: fbc, fbp: getFbp(),
+        custom_data: leadCustom
+      }]
+    });
 
     step2.style.display = 'none';
     formSuccess.style.display = 'block';
