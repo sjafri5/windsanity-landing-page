@@ -1058,6 +1058,15 @@
         font-size: 16px;
       }
 
+      /* MID-PAGE FORM */
+      .mid-form-wrap {
+        max-width: 640px !important;
+        padding: 48px 32px !important;
+      }
+      .mid-form-wrap .form-card {
+        position: static;
+      }
+
       /* REVIEWS — 3-column grid */
       .reviews {
         max-width: 1280px;
@@ -1404,6 +1413,65 @@
           <div class="tier-monthly">or $100/mo</div>
         </div>
         <button class="tier-card-btn outline" data-scroll-to-form>Get quote →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mid-page Quote Form -->
+  <div style="padding:32px 20px;max-width:560px;margin:0 auto;" class="mid-form-wrap">
+    <div class="form-card" id="mid-quote-form-card">
+      <div class="form-card-eyebrow">Free · 24 Hour Response</div>
+      <div class="form-card-title">Get your real install price</div>
+      <div class="form-card-desc">Enter your ZIP and phone. We'll call with an exact price — no gimmicks.</div>
+
+      <div id="mid-form-step-1">
+        <div class="form-header">
+          <div class="step-circle">1</div>
+          <span class="form-heading">Get your free quote in 24 hours</span>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label class="form-label" for="mid-zip-input">ZIP Code</label>
+            <input class="form-input" id="mid-zip-input" type="text" inputmode="numeric" placeholder="75001" maxlength="5">
+          </div>
+          <div>
+            <label class="form-label" for="mid-phone-input">Phone</label>
+            <input class="form-input" id="mid-phone-input" type="tel" inputmode="tel" placeholder="(512) 555-0199">
+          </div>
+        </div>
+        <button class="cta-btn" id="mid-step1-btn" type="button">Get my free quote →</button>
+        <p class="form-micro">✓ No obligation · ✓ Real price in 24 hrs · ✓ We won't spam you</p>
+      </div>
+
+      <div id="mid-form-step-2" style="display:none">
+        <div class="form-header">
+          <div class="step-circle">2</div>
+          <span class="form-heading">Almost done — where should we send it?</span>
+        </div>
+        <input class="form-input-stack" id="mid-name-input" type="text" placeholder="Full name">
+        <input class="form-input-stack" id="mid-sqft-input" type="text" placeholder="Rooms or sq ft to cool">
+        <button class="cta-btn" id="mid-step2-btn" type="button">Get my price →</button>
+      </div>
+
+      <div id="mid-form-success" class="form-success" style="display:none">
+        <div class="form-success-icon">✅</div>
+        <h3>Quote request received.</h3>
+        <p>We'll review your details and get back to you within 24 hours with a recommendation and pricing.</p>
+      </div>
+
+      <div class="form-trust-footer">
+        <div class="form-trust-item">
+          <div class="form-trust-number">2,000+</div>
+          <div class="form-trust-label">Installs</div>
+        </div>
+        <div class="form-trust-item">
+          <div class="form-trust-number">4.9★</div>
+          <div class="form-trust-label">340 reviews</div>
+        </div>
+        <div class="form-trust-item">
+          <div class="form-trust-number">EPA</div>
+          <div class="form-trust-label">Certified</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1766,6 +1834,79 @@
 
   document.querySelectorAll('[data-scroll-to-form]').forEach(function(btn) {
     btn.addEventListener('click', scrollToForm);
+  });
+
+  // --- Mid-page form ---
+  var midZip = document.getElementById('mid-zip-input');
+  var midPhone = document.getElementById('mid-phone-input');
+  var midStep1Btn = document.getElementById('mid-step1-btn');
+  var midStep1 = document.getElementById('mid-form-step-1');
+  var midStep2 = document.getElementById('mid-form-step-2');
+  var midName = document.getElementById('mid-name-input');
+  var midSqft = document.getElementById('mid-sqft-input');
+  var midStep2Btn = document.getElementById('mid-step2-btn');
+  var midSuccess = document.getElementById('mid-form-success');
+
+  midZip.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 5);
+  });
+  midPhone.addEventListener('blur', function() {
+    var digits = this.value.replace(/\D/g, '');
+    if (digits.length === 10) {
+      this.value = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+    }
+  });
+
+  midStep1Btn.addEventListener('click', function() {
+    var zipVal = midZip.value.replace(/\D/g, '');
+    var phoneVal = midPhone.value.replace(/\D/g, '');
+    var valid = true;
+    if (zipVal.length < 5) { midZip.classList.add('shake'); setTimeout(function() { midZip.classList.remove('shake'); }, 300); valid = false; }
+    if (phoneVal.length < 10) { midPhone.classList.add('shake'); setTimeout(function() { midPhone.classList.remove('shake'); }, 300); valid = false; }
+    if (!valid) return;
+    if (typeof fbq === 'function') { fbq('trackCustom', 'QuoteStep1'); }
+    midStep1.style.display = 'none';
+    midStep2.style.display = 'block';
+  });
+
+  midStep2Btn.addEventListener('click', async function() {
+    var name = midName.value.trim();
+    var sqft = midSqft.value.trim();
+    if (!name) { midName.classList.add('shake'); setTimeout(function() { midName.classList.remove('shake'); }, 300); return; }
+    midStep2Btn.disabled = true;
+    midStep2Btn.textContent = 'Submitting…';
+
+    var sourceParts = [midZip.value, sqft, 'mid-form'];
+    if (utmData.utm_campaign) sourceParts.push('campaign:' + utmData.utm_campaign);
+    if (utmData.utm_content) sourceParts.push('ad:' + utmData.utm_content);
+    if (fbclid) sourceParts.push('fbclid:' + fbclid);
+
+    try {
+      await fetch('/.netlify/functions/submit-lead', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, phone: midPhone.value, city: midZip.value, dimensions: sqft, source_detail: sourceParts.join(' | ') })
+      });
+    } catch (err) { console.error('Supabase save failed:', err); }
+
+    try {
+      var netlifyBody = new URLSearchParams();
+      netlifyBody.append('form-name', 'quote');
+      netlifyBody.append('name', name); netlifyBody.append('phone', midPhone.value);
+      netlifyBody.append('zip', midZip.value); netlifyBody.append('dimensions', sqft);
+      netlifyBody.append('source', 'windsanity-landing-page'); netlifyBody.append('variant', variant || '');
+      netlifyBody.append('utm_source', utmData.utm_source || ''); netlifyBody.append('utm_medium', utmData.utm_medium || '');
+      netlifyBody.append('utm_campaign', utmData.utm_campaign || ''); netlifyBody.append('utm_content', utmData.utm_content || '');
+      netlifyBody.append('utm_term', utmData.utm_term || ''); netlifyBody.append('fbclid', fbclid); netlifyBody.append('fbc', fbc);
+      await fetch('/', { method: 'POST', body: netlifyBody });
+    } catch (err) {}
+
+    var leadEid = genEventId();
+    var leadCustom = { content_name: 'home', content_category: 'home_quote' };
+    if (typeof fbq === 'function') { fbq('track', 'Lead', leadCustom, { eventID: leadEid }); }
+    sendCAPI({ events: [{ event_name: 'Lead', event_id: leadEid, source_url: window.location.href, name: name, phone: midPhone.value, zip: midZip.value, fbc: fbc, fbp: getFbp(), custom_data: leadCustom }] });
+
+    midStep2.style.display = 'none';
+    midSuccess.style.display = 'block';
   });
 })();
 </script>
