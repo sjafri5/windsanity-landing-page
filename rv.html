@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mini-Splits for RVs & Campers | Windsanity — Quiet, Efficient Cooling</title>
   <meta name="description" content="Upgrade your RV's cooling with a ductless mini-split. Quieter than rooftop AC, 40% more efficient. Units from $850. Veteran-owned, EPA certified.">
+  <link rel="preload" as="image" type="image/webp" href="rv2.webp">
+  <link rel="dns-prefetch" href="https://connect.facebook.net">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -760,13 +762,108 @@
       opacity: 0.95;
     }
 
+    /* INLINE VALIDATION */
+    .form-error {
+      font-size: 11px;
+      color: #dc2626;
+      margin-top: 4px;
+      display: none;
+    }
+    .form-error.visible { display: block; }
+
+    /* TRUST BADGE NEAR CTA */
+    .cta-trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-subtle);
+    }
+    .cta-trust-row span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* STICKY MOBILE CTA */
+    .sticky-cta {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: #fff;
+      padding: 10px 16px;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 12px rgba(10,37,64,0.08);
+    }
+    .sticky-cta-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.2px;
+    }
+
+    /* COOKIE CONSENT BANNER */
+    .consent-banner {
+      display: none;
+      position: fixed;
+      bottom: 60px;
+      left: 12px;
+      right: 12px;
+      z-index: 1000;
+      background: var(--primary-dark);
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    .consent-banner.visible { display: block; }
+    .consent-banner-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .consent-btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+    }
+    .consent-btn-accept { background: var(--primary); color: #fff; }
+    .consent-btn-decline { background: rgba(255,255,255,0.15); color: #fff; }
+
     /* FOOTER */
     .site-footer {
       padding: 20px;
+      padding-bottom: 70px;
       background: var(--primary-dark);
       color: var(--primary-light);
       font-size: 11px;
       text-align: center;
+    }
+    .footer-links {
+      margin-top: 6px;
+    }
+    .footer-links a {
+      color: var(--primary-light);
+      text-decoration: underline;
+      font-size: 11px;
     }
 
     /* RESPONSIVE — TABLET */
@@ -1103,7 +1200,9 @@
         justify-content: center;
       }
 
-      .site-footer { padding: 28px 32px; font-size: 12px; }
+      .site-footer { padding: 28px 32px; padding-bottom: 28px; font-size: 12px; }
+      .sticky-cta { display: none; }
+      .consent-banner { left: auto; right: 24px; bottom: 24px; max-width: 400px; }
     }
   </style>
   <!-- Facebook Pixel -->
@@ -1160,7 +1259,10 @@
 
       <!-- Hero image -->
       <div class="hero-image">
-        <img src="rv2.png" alt="RV mini-split installation" style="width:100%;height:100%;object-fit:cover;">
+        <picture>
+          <source srcset="rv2.webp" type="image/webp">
+          <img src="rv2.png" alt="RV mini-split installation" style="width:100%;height:100%;object-fit:cover;">
+        </picture>
       </div>
     </div>
 
@@ -1180,13 +1282,19 @@
           <div>
             <label class="form-label" for="zip-input">ZIP Code</label>
             <input class="form-input" id="zip-input" type="text" inputmode="numeric" placeholder="75001" maxlength="5">
+            <div class="form-error" id="zip-error">Enter a 5-digit ZIP code</div>
           </div>
           <div>
             <label class="form-label" for="phone-input">Phone</label>
             <input class="form-input" id="phone-input" type="tel" inputmode="tel" placeholder="(512) 555-0199">
+            <div class="form-error" id="phone-error">Enter a 10-digit phone number</div>
           </div>
         </div>
         <button class="cta-btn" id="step1-btn" type="button">Get my free RV quote →</button>
+        <div class="cta-trust-row">
+          <span>&#128274; 100% Satisfaction Guarantee</span>
+          <span>&#9733; 4.9 Stars</span>
+        </div>
         <p class="form-micro">✓ No obligation · ✓ Real price in 24 hrs · ✓ We won't spam you</p>
       </div>
 
@@ -1428,13 +1536,19 @@
           <div>
             <label class="form-label" for="mid-zip-input">ZIP Code</label>
             <input class="form-input" id="mid-zip-input" type="text" inputmode="numeric" placeholder="75001" maxlength="5">
+            <div class="form-error" id="mid-zip-error">Enter a 5-digit ZIP code</div>
           </div>
           <div>
             <label class="form-label" for="mid-phone-input">Phone</label>
             <input class="form-input" id="mid-phone-input" type="tel" inputmode="tel" placeholder="(512) 555-0199">
+            <div class="form-error" id="mid-phone-error">Enter a 10-digit phone number</div>
           </div>
         </div>
         <button class="cta-btn" id="mid-step1-btn" type="button">Get my free RV quote →</button>
+        <div class="cta-trust-row">
+          <span>&#128274; 100% Satisfaction Guarantee</span>
+          <span>&#9733; 4.9 Stars</span>
+        </div>
         <p class="form-micro">✓ No obligation · ✓ Real price in 24 hrs · ✓ We won't spam you</p>
       </div>
 
@@ -1607,6 +1721,21 @@
   <!-- 13. Footer -->
   <div class="site-footer">
     Windsanity Mini-Splits · Veteran-Owned · EPA Certified · Nationwide
+    <div class="footer-links"><a href="privacy-policy.html">Privacy Policy</a></div>
+  </div>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="sticky-cta" id="sticky-cta">
+    <button class="sticky-cta-btn" id="sticky-cta-btn">Get my free RV quote →</button>
+  </div>
+
+  <!-- Cookie Consent Banner -->
+  <div class="consent-banner" id="consent-banner">
+    We use cookies to measure ad performance and improve your experience.
+    <div class="consent-banner-actions">
+      <button class="consent-btn consent-btn-accept" id="consent-accept">Accept</button>
+      <button class="consent-btn consent-btn-decline" id="consent-decline">Decline</button>
+    </div>
   </div>
 
 </div>
@@ -1616,6 +1745,7 @@
   <input name="form-name" value="quote-rv">
   <input name="bot-field">
   <input name="name">
+  <input name="email">
   <input name="phone">
   <input name="zip">
   <input name="utm_source">
@@ -1734,12 +1864,17 @@
     observer.observe(pricingEl);
   }
 
+  // --- Helper: show/hide inline errors ---
+  function showError(id) { var el = document.getElementById(id); if (el) el.classList.add('visible'); }
+  function hideError(id) { var el = document.getElementById(id); if (el) el.classList.remove('visible'); }
+
   var zipInput = document.getElementById('zip-input');
   var phoneInput = document.getElementById('phone-input');
   var step1Btn = document.getElementById('step1-btn');
   var step1 = document.getElementById('form-step-1');
   var step2 = document.getElementById('form-step-2');
   var nameInput = document.getElementById('name-input');
+  var emailInput = document.getElementById('email-input');
   var rvInput = document.getElementById('rv-input');
   var step2Btn = document.getElementById('step2-btn');
   var formSuccess = document.getElementById('form-success');
@@ -1747,12 +1882,14 @@
 
   zipInput.addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '').slice(0, 5);
+    if (this.value.replace(/\D/g, '').length >= 5) hideError('zip-error');
   });
 
   phoneInput.addEventListener('blur', function() {
     var digits = this.value.replace(/\D/g, '');
     if (digits.length === 10) {
       this.value = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+      hideError('phone-error');
     }
   });
 
@@ -1762,15 +1899,15 @@
     var valid = true;
 
     if (zipVal.length < 5) {
-      zipInput.classList.add('shake');
+      zipInput.classList.add('shake'); showError('zip-error');
       setTimeout(function() { zipInput.classList.remove('shake'); }, 300);
       valid = false;
-    }
+    } else { hideError('zip-error'); }
     if (phoneVal.length < 10) {
-      phoneInput.classList.add('shake');
+      phoneInput.classList.add('shake'); showError('phone-error');
       setTimeout(function() { phoneInput.classList.remove('shake'); }, 300);
       valid = false;
-    }
+    } else { hideError('phone-error'); }
     if (!valid) return;
 
     if (typeof fbq === 'function') { fbq('trackCustom', 'QuoteStep1_RV'); }
@@ -1781,6 +1918,7 @@
 
   step2Btn.addEventListener('click', async function() {
     var name = nameInput.value.trim();
+    var email = emailInput.value.trim();
     var rvType = rvInput.value.trim();
     if (!name) {
       nameInput.classList.add('shake');
@@ -1796,13 +1934,13 @@
     if (utmData.utm_content) sourceParts.push('ad:' + utmData.utm_content);
     if (fbclid) sourceParts.push('fbclid:' + fbclid);
 
-    // Send to Supabase
     try {
       var sbRes = await fetch('/.netlify/functions/submit-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: name,
+          email: email,
           phone: phoneInput.value,
           city: zipInput.value,
           dimensions: rvType,
@@ -1812,11 +1950,11 @@
       console.log('Supabase save:', sbRes.status);
     } catch (err) { console.error('Supabase save failed:', err); }
 
-    // Submit to Netlify Forms
     try {
       var netlifyBody = new URLSearchParams();
       netlifyBody.append('form-name', 'quote-rv');
       netlifyBody.append('name', name);
+      netlifyBody.append('email', email);
       netlifyBody.append('phone', phoneInput.value);
       netlifyBody.append('zip', zipInput.value);
       netlifyBody.append('rv_type', rvType);
@@ -1832,13 +1970,8 @@
       await fetch('/', { method: 'POST', body: netlifyBody });
     } catch (err) {}
 
-    // Fire Lead — browser pixel + CAPI with shared event_id for dedup
     var leadEid = genEventId();
-    var leadCustom = {
-      content_name: 'rv',
-      content_category: 'rv_quote',
-      content_ids: ['rv_variant_' + variant]
-    };
+    var leadCustom = { content_name: 'rv', content_category: 'rv_quote', content_ids: ['rv_variant_' + variant] };
 
     if (typeof fbq === 'function') {
       fbq('track', 'Lead', leadCustom, { eventID: leadEid });
@@ -1849,6 +1982,7 @@
         event_id: leadEid,
         source_url: window.location.href,
         name: name,
+        email: email,
         phone: phoneInput.value,
         zip: zipInput.value,
         fbc: fbc, fbp: getFbp(),
@@ -1875,6 +2009,10 @@
     btn.addEventListener('click', scrollToForm);
   });
 
+  // --- Sticky mobile CTA ---
+  var stickyBtn = document.getElementById('sticky-cta-btn');
+  if (stickyBtn) { stickyBtn.addEventListener('click', scrollToForm); }
+
   // --- Mid-page form ---
   var midZip = document.getElementById('mid-zip-input');
   var midPhone = document.getElementById('mid-phone-input');
@@ -1882,17 +2020,20 @@
   var midStep1 = document.getElementById('mid-form-step-1');
   var midStep2 = document.getElementById('mid-form-step-2');
   var midName = document.getElementById('mid-name-input');
+  var midEmail = document.getElementById('mid-email-input');
   var midRv = document.getElementById('mid-rv-input');
   var midStep2Btn = document.getElementById('mid-step2-btn');
   var midSuccess = document.getElementById('mid-form-success');
 
   midZip.addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '').slice(0, 5);
+    if (this.value.replace(/\D/g, '').length >= 5) hideError('mid-zip-error');
   });
   midPhone.addEventListener('blur', function() {
     var digits = this.value.replace(/\D/g, '');
     if (digits.length === 10) {
       this.value = '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+      hideError('mid-phone-error');
     }
   });
 
@@ -1900,8 +2041,8 @@
     var zipVal = midZip.value.replace(/\D/g, '');
     var phoneVal = midPhone.value.replace(/\D/g, '');
     var valid = true;
-    if (zipVal.length < 5) { midZip.classList.add('shake'); setTimeout(function() { midZip.classList.remove('shake'); }, 300); valid = false; }
-    if (phoneVal.length < 10) { midPhone.classList.add('shake'); setTimeout(function() { midPhone.classList.remove('shake'); }, 300); valid = false; }
+    if (zipVal.length < 5) { midZip.classList.add('shake'); showError('mid-zip-error'); setTimeout(function() { midZip.classList.remove('shake'); }, 300); valid = false; } else { hideError('mid-zip-error'); }
+    if (phoneVal.length < 10) { midPhone.classList.add('shake'); showError('mid-phone-error'); setTimeout(function() { midPhone.classList.remove('shake'); }, 300); valid = false; } else { hideError('mid-phone-error'); }
     if (!valid) return;
     if (typeof fbq === 'function') { fbq('trackCustom', 'QuoteStep1_RV'); }
     midStep1.style.display = 'none';
@@ -1910,6 +2051,7 @@
 
   midStep2Btn.addEventListener('click', async function() {
     var name = midName.value.trim();
+    var email = midEmail.value.trim();
     var rvType = midRv.value.trim();
     if (!name) { midName.classList.add('shake'); setTimeout(function() { midName.classList.remove('shake'); }, 300); return; }
     midStep2Btn.disabled = true;
@@ -1923,14 +2065,14 @@
     try {
       await fetch('/.netlify/functions/submit-lead', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, phone: midPhone.value, city: midZip.value, dimensions: rvType, source_detail: sourceParts.join(' | ') })
+        body: JSON.stringify({ name: name, email: email, phone: midPhone.value, city: midZip.value, dimensions: rvType, source_detail: sourceParts.join(' | ') })
       });
     } catch (err) { console.error('Supabase save failed:', err); }
 
     try {
       var netlifyBody = new URLSearchParams();
       netlifyBody.append('form-name', 'quote-rv');
-      netlifyBody.append('name', name); netlifyBody.append('phone', midPhone.value);
+      netlifyBody.append('name', name); netlifyBody.append('email', email); netlifyBody.append('phone', midPhone.value);
       netlifyBody.append('zip', midZip.value); netlifyBody.append('rv_type', rvType);
       netlifyBody.append('source', 'windsanity-rv-landing-page'); netlifyBody.append('variant', variant);
       netlifyBody.append('utm_source', utmData.utm_source || ''); netlifyBody.append('utm_medium', utmData.utm_medium || '');
@@ -1942,10 +2084,27 @@
     var leadEid = genEventId();
     var leadCustom = { content_name: 'rv', content_category: 'rv_quote', content_ids: ['rv_variant_' + variant] };
     if (typeof fbq === 'function') { fbq('track', 'Lead', leadCustom, { eventID: leadEid }); }
-    sendCAPI({ events: [{ event_name: 'Lead', event_id: leadEid, source_url: window.location.href, name: name, phone: midPhone.value, zip: midZip.value, fbc: fbc, fbp: getFbp(), custom_data: leadCustom }] });
+    sendCAPI({ events: [{ event_name: 'Lead', event_id: leadEid, source_url: window.location.href, name: name, email: email, phone: midPhone.value, zip: midZip.value, fbc: fbc, fbp: getFbp(), custom_data: leadCustom }] });
 
     midStep2.style.display = 'none';
     midSuccess.style.display = 'block';
+  });
+
+  // --- Cookie consent banner ---
+  var consentBanner = document.getElementById('consent-banner');
+  var consentAccept = document.getElementById('consent-accept');
+  var consentDecline = document.getElementById('consent-decline');
+
+  if (!localStorage.getItem('ws_consent')) {
+    consentBanner.classList.add('visible');
+  }
+  consentAccept.addEventListener('click', function() {
+    localStorage.setItem('ws_consent', 'accepted');
+    consentBanner.classList.remove('visible');
+  });
+  consentDecline.addEventListener('click', function() {
+    localStorage.setItem('ws_consent', 'declined');
+    consentBanner.classList.remove('visible');
   });
 })();
 </script>
